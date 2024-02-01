@@ -24,4 +24,12 @@ jobs:
         pip install -r requirements.txt  # Make sure to create requirements.txt if you have dependencies
 
     - name: Run the script
-      run: python scraper.py  # Replace with the actual name of your Python script
+      run: |
+        python scraper.py
+        cp news.json $GITHUB_WORKSPACE/  # Move the JSON file to the repository root
+
+    - name: Upload JSON artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: news
+        path: news.json
