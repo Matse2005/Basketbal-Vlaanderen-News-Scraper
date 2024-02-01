@@ -2,6 +2,7 @@ name: News Items
 
 on:
   schedule:
+    - workflow_dispatch
     - cron: '0 */12 * * *'  # Runs every 12 hours
 
 jobs:
