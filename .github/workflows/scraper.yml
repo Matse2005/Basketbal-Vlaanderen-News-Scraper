@@ -26,7 +26,7 @@ jobs:
     - name: Run the script
       run: |
         python scraper.py
-        cp -f news.json $GITHUB_WORKSPACE/  # Move the JSON file to the repository root
+        mv -f news.json $GITHUB_WORKSPACE/  # Move the JSON file to the repository root
 
     - name: Upload JSON artifact
       uses: actions/upload-artifact@v2
