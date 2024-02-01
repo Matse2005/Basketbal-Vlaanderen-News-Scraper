@@ -27,7 +27,6 @@ jobs:
       run: |
         rm news.json  # Remove the original news.json file
         python scraper.py
-        cp -f news.json $GITHUB_WORKSPACE/news.json  # Overwrite the existing news.json file
 
     - name: Upload JSON artifact
       uses: actions/upload-artifact@v2
