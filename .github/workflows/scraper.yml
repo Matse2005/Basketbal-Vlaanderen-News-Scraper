@@ -1,9 +1,9 @@
-name: News Items
+name: Web Scraping
 
 on:
   schedule:
-    - workflow_dispatch
     - cron: '0 */12 * * *'  # Runs every 12 hours
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   scrape:
@@ -24,4 +24,4 @@ jobs:
         pip install -r requirements.txt  # Make sure to create requirements.txt if you have dependencies
 
     - name: Run the script
-      run: python scraper.py  # Replace with the actual name of your Python script
+      run: python your_script.py  # Replace with the actual name of your Python script
