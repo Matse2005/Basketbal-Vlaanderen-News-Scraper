@@ -39,8 +39,8 @@ jobs:
       - name: Upload JSON artifact
         uses: actions/upload-artifact@v4
         with:
-          name: vbl_news
-          path: news.json # Upload the renamed news.json file
+          name: news
+          path: data/news.json
 
       - name: Debug Workspace
         run: |
