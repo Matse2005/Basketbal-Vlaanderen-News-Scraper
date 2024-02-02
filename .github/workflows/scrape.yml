@@ -2,52 +2,52 @@ name: Web Scraping
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
   schedule:
-    - cron: '0 */12 * * *'  # Runs every 12 hours
-  workflow_dispatch:  # Allows manual triggering
+    - cron: "0 */12 * * *" # Runs every 12 hours
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.11
-        working-directory: $GITHUB_WORKSPACE
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+          working-directory: $GITHUB_WORKSPACE
 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Make sure to create requirements.txt if you have dependencies
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt  # Make sure to create requirements.txt if you have dependencies
+      - name: Run the script
+        run: |
+          python scraper.py
 
-    - name: Run the script
-      run: |
-        python scraper.py
+      - name: Rename and upload JSON artifact
+        run: |
+          mv -f news.json $GITHUB_WORKSPACE/vbl_news.json
+          echo "File renamed and ready for upload"
 
-    - name: Rename and upload JSON artifact
-      run: |
-        mv -f news.json $GITHUB_WORKSPACE/vbl_news.json
-        echo "File renamed and ready for upload"
+      - name: Upload JSON artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: vbl_news
+          path: $GITHUB_WORKSPACE/vbl_news.json # Upload the renamed news.json file
 
-    - name: Upload JSON artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: vbl_news
-        path: $GITHUB_WORKSPACE/vbl_news.json  # Upload the renamed news.json file
+      - name: Debug Workspace
+        run: |
+          echo "Workspace: $GITHUB_WORKSPACE"
 
-    - name: Debug Workspace
-      run: echo "Workspace: $GITHUB_WORKSPACE"
-
-    - name: Debug File Existence
-      run: |
-        ls -R $GITHUB_WORKSPACE
-        echo "File exists: $(test -e $GITHUB_WORKSPACE/news.json && echo true || echo false)"
+      - name: Debug File Existence
+        run: |
+          ls -R $GITHUB_WORKSPACE
+          echo "File exists: $(test -e $GITHUB_WORKSPACE/news.json && echo true || echo false)"
