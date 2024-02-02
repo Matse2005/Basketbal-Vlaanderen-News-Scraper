@@ -21,6 +21,9 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.11
+        working-directory: $GITHUB_WORKSPACE
+        - name: Set up Python
+
 
     - name: Install dependencies
       run: |
@@ -41,3 +44,11 @@ jobs:
       with:
         name: vbl_news
         path: $GITHUB_WORKSPACE/vbl_news.json  # Upload the renamed news.json file
+
+    - name: Debug Workspace
+      run: echo "Workspace: $GITHUB_WORKSPACE"
+
+    - name: Debug File Existence
+      run: |
+        ls -R $GITHUB_WORKSPACE
+        echo "File exists: $(test -e $GITHUB_WORKSPACE/news.json && echo true || echo false)"
