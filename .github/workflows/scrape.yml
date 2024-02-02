@@ -22,7 +22,6 @@ jobs:
       with:
         python-version: 3.11
         working-directory: $GITHUB_WORKSPACE
-        - name: Set up Python
 
 
     - name: Install dependencies
