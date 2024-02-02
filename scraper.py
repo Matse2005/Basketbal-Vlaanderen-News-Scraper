@@ -53,7 +53,7 @@ if __name__ == "__main__":
     base_url = "https://www.basketbal.vlaanderen/nieuws/"
     all_blog_posts = scrape_blog_posts(base_url)
 
-    with open('news.json', 'w', encoding='utf-8') as json_file:
+    with open('$GITHUB_WORKSPACE/news.json', 'w', encoding='utf-8') as json_file:
         json.dump(all_blog_posts, json_file, ensure_ascii=False, indent=2)
 
     print("Scraping completed. Data saved to news.json.")
