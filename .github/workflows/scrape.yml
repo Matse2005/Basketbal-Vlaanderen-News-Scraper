@@ -31,13 +31,13 @@ jobs:
       run: |
         python scraper.py
 
-    # - name: Rename and upload JSON artifact
-    #   run: |
-    #     mv -f news.json $GITHUB_WORKSPACE/news.json
-    #     echo "File renamed and ready for upload"
+    - name: Rename and upload JSON artifact
+      run: |
+        mv -f news.json $GITHUB_WORKSPACE/vbl_news.json
+        echo "File renamed and ready for upload"
 
     - name: Upload JSON artifact
       uses: actions/upload-artifact@v2
       with:
         name: vbl_news
-        path: $GITHUB_WORKSPACE/news.json  # Upload the renamed news.json file
+        path: $GITHUB_WORKSPACE/vbl_news.json  # Upload the renamed news.json file
