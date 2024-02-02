@@ -1,13 +1,9 @@
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-import requests
 import json
 
-app = FastAPI()
-
-def scrape_news(base_url):
+def scrape_blog_posts(base_url):
     all_posts = []
     previous_cards = None
     page = 1
@@ -53,12 +49,11 @@ def scrape_news(base_url):
 
     return all_posts
 
-@app.get("/scrape")
-async def scrape():
+if __name__ == "__main__":
     base_url = "https://www.basketbal.vlaanderen/nieuws/"
-    all_news = scrape_news(base_url)
+    all_blog_posts = scrape_blog_posts(base_url)
 
-    with open('/tmp/news.json', 'w', encoding='utf-8') as json_file:
-        json.dump(all_news, json_file, ensure_ascii=False, indent=2)
+    with open('news.json', 'w', encoding='utf-8') as json_file:
+        json.dump(all_blog_posts, json_file, ensure_ascii=False, indent=2)
 
-    return JSONResponse(content={"message": "Scraping completed. Data saved to /tmp/news.json."})
+    print("Scraping completed. Data saved to news.json.")

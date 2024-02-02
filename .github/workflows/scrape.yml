@@ -1,6 +1,10 @@
 name: Web Scraping
 
 on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
   schedule:
     - cron: '0 */12 * * *'  # Runs every 12 hours
   workflow_dispatch:  # Allows manual triggering
@@ -11,7 +15,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -29,7 +33,7 @@ jobs:
 
     - name: Rename and upload JSON artifact
       run: |
-        # mv -f vbl_news.json $GITHUB_WORKSPACE/vbl_news.json
+        mv -f news.json $GITHUB_WORKSPACE/vbl_news.json
         echo "File renamed and ready for upload"
 
     - name: Upload JSON artifact
