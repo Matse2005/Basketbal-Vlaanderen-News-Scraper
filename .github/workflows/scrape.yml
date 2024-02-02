@@ -20,7 +20,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.11
 
     - name: Install dependencies
       run: |
@@ -33,7 +33,7 @@ jobs:
 
     - name: Rename and upload JSON artifact
       run: |
-        mv -f news.json $GITHUB_WORKSPACE/vbl_news.json
+        mv -f news.json $GITHUB_WORKSPACE/news.json
         echo "File renamed and ready for upload"
 
     - name: Upload JSON artifact
